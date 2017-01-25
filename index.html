@@ -1,0 +1,35 @@
+
+<section>
+  <h2>Places</h2>
+  <ul class="places">
+    <li>Moe's</li>
+    <li>Krusty Burger</li>
+    <li>Luigi's</li>
+  </ul>
+</section>
+<section>
+  <h2>People</h2>
+  <ul class="people">
+    <li>Gill</li>
+    <li>Fred</li>
+    <li>Gill's Wife</li>
+  </ul>
+</section>
+<script type="text/javascript">
+  var getItems = (type) => {
+    return [].slice.call(document.querySelectorAll('ul.'+ type + ' li')) .map((el) => el.textContent);
+  };
+
+  Array.prototype.sort = () => Math.floor(Math.random()*2);
+
+
+
+  function shuffle() {
+    var people = getItems('people');
+    var places = getItems('places');
+
+
+  }
+
+  //shuffle();
+</script>
