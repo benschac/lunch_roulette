@@ -45,13 +45,15 @@
         <li>Krusty Burger</li>
         <li>Luigi's</li>
       </ul>
+      <input id="place" type="text" name="" placeholder="enter name" value="">
+      <button class="clear-places" type="button" name="button">clear</button>
     </section>
     <section id="groups">
       <h2>Groups</h2>
       <div id="groupings">
 
       </div>
-      <button type="button" name="button">Create Groups</button>
+      <button id="group-btn" type="button" name="button">Create Groups</button>
     </section>
     <section>
       <h2>People</h2>
@@ -67,11 +69,12 @@
         <li>Maggie </li>
       </ul>
       <input id="name" type="text" name="" placeholder="enter name" value="">
+      <button class="clear-people" type="button" name="button">clear</button>
     </section>
 
 
     <script type="text/javascript">
-      var button = document.querySelector('button');
+
       var groupings = document.getElementById('groupings');
       var groups = document.getElementById('groups');
       var name = document.getElementById('name');
@@ -131,42 +134,59 @@
       });
     }
 
-    function clearGroupings() {
-      while(groupings.childElementCount > 0) {
-        groupings.childNodes.forEach((el) => el.remove());
+    function clear(node) {
+      while(node.childElementCount > 0) {
+        node.childNodes.forEach((el) => el.remove());
       }
+    }
+
+    function clearGroupings() {
+      clear(groupings);
+    }
+
+    function clearPeople() {
+      var people = document.querySelector('ul.people');
+      clear(people);
+    }
+
+    function clearPlaces() {
+      var places = document.querySelector('ul.places');
+      clear(places);
     }
 
     function appendToPeople() {
-      appendToList('ul.people');
+      appendToList('ul.people', 'name');
     }
 
-    function appendToList(list) {
-      console.log(event);
-      if(event.key === "Enter") {
-        var people = document.querySelector(list);
-        var element = document.createElement('li');
-        element.innerText = inputToList();
-        people.append(element);
+    function appendToPlaces() {
+      appendToList('ul.places', 'place');
+    }
 
-        if(inputToList().length) {
-          document.querySelector('input').value = '';
+    function appendToList(list, input) {
+      if(event.key === "Enter") {
+
+        var list = document.querySelector(list);
+        var element = document.createElement('li');
+        element.innerText = inputValue(input);
+        console.log(element);
+        list.append(element);
+
+        if(inputValue(input).length) {
+          document.getElementById(input).value = '';
         }
       }
-
-
-
     }
 
-    function inputToList() {
-      var input = document.querySelector('input');
-      return input.value;
+    function inputValue(id) {
+      return document.getElementById(id).value;
     }
 
 
-    button.addEventListener('click', () => shuffleClick(shuffle()));
+    document.getElementById('group-btn').addEventListener('click', () => shuffleClick(shuffle()));
     document.getElementById('name').addEventListener('keypress', appendToPeople);
-
+    document.getElementById('place').addEventListener('keypress', appendToPlaces);
+    document.querySelector('.clear-places').addEventListener('click', clearPlaces);
+    document.querySelector('.clear-people').addEventListener('click', clearPeople);
 
     </script>
   </body>
